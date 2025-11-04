@@ -12,12 +12,18 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+const gamesList = ['GTA San Andreas', 'The Sims 4', "Garry's Mod", 'Minecraft', 'Terraria'];
+
+const contentTypes = [
+  { id: 'download', name: 'Скачать', icon: 'Download' },
+  { id: 'mods', name: 'Моды', icon: 'Package', subcategories: ['Оружие', 'Транспорт', 'Карты', 'Скины', 'Персонажи'] },
+  { id: 'scripts', name: 'Скрипты', icon: 'Code' },
+  { id: 'cheats', name: 'Читы', icon: 'Shield' },
+  { id: 'info', name: 'Информация', icon: 'Info' },
+];
+
 const categories = [
-  { id: 'games', name: 'Игры', icon: 'Gamepad2', color: 'text-[hsl(var(--primary))]', subcategories: ['GTA San Andreas', 'The Sims 4', "Garry's Mod", 'Minecraft', 'Terraria'] },
-  { id: 'mods', name: 'Моды', icon: 'Package', color: 'text-[hsl(var(--secondary))]', subcategories: ['Оружие', 'Транспорт', 'Текстуры', 'Карты', 'Скины', 'Персонажи'] },
-  { id: 'scripts', name: 'Скрипты', icon: 'Code', color: 'text-[hsl(var(--accent))]' },
-  { id: 'cheats', name: 'Читы', icon: 'Shield', color: 'text-[hsl(var(--primary))]' },
-  { id: 'info', name: 'Информация', icon: 'Info', color: 'text-[hsl(var(--secondary))]' },
+  { id: 'games', name: 'Игры', icon: 'Gamepad2', color: 'text-[hsl(var(--primary))]' },
 ];
 
 const mockFiles = [
@@ -25,8 +31,9 @@ const mockFiles = [
     id: 1,
     name: 'GTA San Andreas - Полная версия',
     category: 'games',
-    subcategory: 'GTA San Andreas',
-    type: 'Скачать',
+    game: 'GTA San Andreas',
+    contentType: 'download',
+    modType: null,
     size: '4.7 GB',
     downloads: 125420,
     rating: 4.9,
@@ -36,8 +43,9 @@ const mockFiles = [
     id: 2,
     name: 'GTA San Andreas - Сохранения 100%',
     category: 'games',
-    subcategory: 'GTA San Andreas',
-    type: 'Файлы игры',
+    game: 'GTA San Andreas',
+    contentType: 'info',
+    modType: null,
     size: '12 MB',
     downloads: 45230,
     rating: 4.6,
@@ -47,8 +55,9 @@ const mockFiles = [
     id: 3,
     name: 'The Sims 4 - Базовая игра',
     category: 'games',
-    subcategory: 'The Sims 4',
-    type: 'Скачать',
+    game: 'The Sims 4',
+    contentType: 'download',
+    modType: null,
     size: '18 GB',
     downloads: 98340,
     rating: 4.7,
@@ -56,10 +65,11 @@ const mockFiles = [
   },
   {
     id: 4,
-    name: 'The Sims 4 - Пользовательский контент',
+    name: 'The Sims 4 - Мебель и декор',
     category: 'games',
-    subcategory: 'The Sims 4',
-    type: 'Файлы игры',
+    game: 'The Sims 4',
+    contentType: 'mods',
+    modType: 'Карты',
     size: '850 MB',
     downloads: 34120,
     rating: 4.5,
@@ -69,8 +79,9 @@ const mockFiles = [
     id: 5,
     name: "Garry's Mod - Полная версия",
     category: 'games',
-    subcategory: "Garry's Mod",
-    type: 'Скачать',
+    game: "Garry's Mod",
+    contentType: 'download',
+    modType: null,
     size: '5.2 GB',
     downloads: 87650,
     rating: 4.8,
@@ -78,10 +89,11 @@ const mockFiles = [
   },
   {
     id: 6,
-    name: "Garry's Mod - Аддоны и карты",
+    name: "Garry's Mod - Оружейный пак",
     category: 'games',
-    subcategory: "Garry's Mod",
-    type: 'Файлы игры',
+    game: "Garry's Mod",
+    contentType: 'mods',
+    modType: 'Оружие',
     size: '2.1 GB',
     downloads: 56340,
     rating: 4.7,
@@ -91,8 +103,9 @@ const mockFiles = [
     id: 7,
     name: 'Minecraft Java Edition',
     category: 'games',
-    subcategory: 'Minecraft',
-    type: 'Скачать',
+    game: 'Minecraft',
+    contentType: 'download',
+    modType: null,
     size: '1.2 GB',
     downloads: 234567,
     rating: 5.0,
@@ -100,10 +113,11 @@ const mockFiles = [
   },
   {
     id: 8,
-    name: 'Minecraft - Текстуры и шейдеры',
+    name: 'Minecraft - Скрипт автоматизации',
     category: 'games',
-    subcategory: 'Minecraft',
-    type: 'Файлы игры',
+    game: 'Minecraft',
+    contentType: 'scripts',
+    modType: null,
     size: '650 MB',
     downloads: 89450,
     rating: 4.8,
@@ -113,8 +127,9 @@ const mockFiles = [
     id: 9,
     name: 'Terraria - Полная версия',
     category: 'games',
-    subcategory: 'Terraria',
-    type: 'Скачать',
+    game: 'Terraria',
+    contentType: 'download',
+    modType: null,
     size: '450 MB',
     downloads: 156780,
     rating: 4.9,
@@ -122,80 +137,71 @@ const mockFiles = [
   },
   {
     id: 10,
-    name: 'Terraria - Миры и персонажи',
+    name: 'Terraria - Читы на ресурсы',
     category: 'games',
-    subcategory: 'Terraria',
-    type: 'Файлы игры',
+    game: 'Terraria',
+    contentType: 'cheats',
+    modType: null,
     size: '45 MB',
     downloads: 67890,
     rating: 4.6,
     version: '1.0',
   },
   {
-    id: 6,
-    name: 'GTA SA Ultra Graphics Mod',
-    category: 'mods',
-    subcategory: 'Текстуры',
+    id: 11,
+    name: 'GTA SA - Пак оружия',
+    category: 'games',
+    game: 'GTA San Andreas',
+    contentType: 'mods',
+    modType: 'Оружие',
     size: '2.5 GB',
     downloads: 15420,
     rating: 4.8,
     version: '3.2',
   },
   {
-    id: 7,
-    name: 'Lamborghini Aventador Pack',
-    category: 'mods',
-    subcategory: 'Транспорт',
+    id: 12,
+    name: 'GTA SA - Lamborghini Aventador',
+    category: 'games',
+    game: 'GTA San Andreas',
+    contentType: 'mods',
+    modType: 'Транспорт',
     size: '150 MB',
     downloads: 23456,
     rating: 4.7,
     version: '1.5',
   },
   {
-    id: 8,
-    name: 'AK-47 HD Model',
-    category: 'mods',
-    subcategory: 'Оружие',
+    id: 13,
+    name: 'Minecraft - Пак скинов',
+    category: 'games',
+    game: 'Minecraft',
+    contentType: 'mods',
+    modType: 'Скины',
     size: '45 MB',
     downloads: 12890,
     rating: 4.6,
     version: '2.0',
-  },
-  {
-    id: 9,
-    name: 'Auto Farm Script',
-    category: 'scripts',
-    size: '2 MB',
-    downloads: 31245,
-    rating: 4.5,
-    version: '4.3',
-  },
-  {
-    id: 10,
-    name: 'Wallhack Pro',
-    category: 'cheats',
-    size: '5 MB',
-    downloads: 45678,
-    rating: 4.4,
-    version: '1.9',
   },
 ];
 
 export default function Index() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
-  const [selectedFileType, setSelectedFileType] = useState<string | null>(null);
+  const [selectedGame, setSelectedGame] = useState<string | null>(null);
+  const [selectedContentType, setSelectedContentType] = useState<string | null>(null);
+  const [selectedModType, setSelectedModType] = useState<string | null>(null);
 
   const filteredFiles = mockFiles.filter(file => {
     const matchesCategory = !selectedCategory || file.category === selectedCategory;
     const matchesSearch = !searchQuery || file.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesSubcategory = !selectedSubcategory || file.subcategory === selectedSubcategory;
-    const matchesFileType = !selectedFileType || (file as any).type === selectedFileType;
-    return matchesCategory && matchesSearch && matchesSubcategory && matchesFileType;
+    const matchesGame = !selectedGame || (file as any).game === selectedGame;
+    const matchesContentType = !selectedContentType || (file as any).contentType === selectedContentType;
+    const matchesModType = !selectedModType || (file as any).modType === selectedModType;
+    return matchesCategory && matchesSearch && matchesGame && matchesContentType && matchesModType;
   });
 
-  const currentCategory = categories.find(c => c.id === selectedCategory);
+  const currentContentType = contentTypes.find(c => c.id === selectedContentType);
 
   return (
     <div className="min-h-screen bg-background">
@@ -241,8 +247,9 @@ export default function Index() {
               }`}
               onClick={() => {
                 setSelectedCategory(selectedCategory === category.id ? null : category.id);
-                setSelectedSubcategory(null);
-                setSelectedFileType(null);
+                setSelectedGame(null);
+                setSelectedContentType(null);
+                setSelectedModType(null);
               }}
             >
               <CardContent className="p-6 text-center">
@@ -253,62 +260,92 @@ export default function Index() {
           ))}
         </div>
 
-        {currentCategory?.subcategories && (
+        {selectedCategory === 'games' && (
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-3 text-primary">Выберите игру:</h3>
             <div className="flex flex-wrap gap-2 mb-4">
               <Button
-                variant={!selectedSubcategory ? "default" : "outline"}
+                variant={!selectedGame ? "default" : "outline"}
                 onClick={() => {
-                  setSelectedSubcategory(null);
-                  setSelectedFileType(null);
+                  setSelectedGame(null);
+                  setSelectedContentType(null);
+                  setSelectedModType(null);
                 }}
                 className="neon-border-secondary"
               >
                 Все игры
               </Button>
-              {currentCategory.subcategories.map((sub) => (
+              {gamesList.map((game) => (
                 <Button
-                  key={sub}
-                  variant={selectedSubcategory === sub ? "default" : "outline"}
+                  key={game}
+                  variant={selectedGame === game ? "default" : "outline"}
                   onClick={() => {
-                    setSelectedSubcategory(sub);
-                    setSelectedFileType(null);
+                    setSelectedGame(game);
+                    setSelectedContentType(null);
+                    setSelectedModType(null);
                   }}
                   className="neon-border-secondary"
                 >
-                  {sub}
+                  {game}
                 </Button>
               ))}
             </div>
           </div>
         )}
 
-        {selectedSubcategory && selectedCategory === 'games' && (
+        {selectedGame && (
           <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-3 text-secondary">Тип файлов:</h3>
+            <h3 className="text-lg font-semibold mb-3 text-secondary">Тип контента:</h3>
             <div className="flex flex-wrap gap-2">
               <Button
-                variant={!selectedFileType ? "default" : "outline"}
-                onClick={() => setSelectedFileType(null)}
+                variant={!selectedContentType ? "default" : "outline"}
+                onClick={() => {
+                  setSelectedContentType(null);
+                  setSelectedModType(null);
+                }}
                 className="neon-border"
               >
                 Всё
               </Button>
+              {contentTypes.map((type) => (
+                <Button
+                  key={type.id}
+                  variant={selectedContentType === type.id ? "default" : "outline"}
+                  onClick={() => {
+                    setSelectedContentType(type.id);
+                    setSelectedModType(null);
+                  }}
+                  className="neon-border"
+                >
+                  <Icon name={type.icon} className="mr-2" size={16} />
+                  {type.name}
+                </Button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {selectedContentType === 'mods' && currentContentType?.subcategories && (
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-accent">Категория модов:</h3>
+            <div className="flex flex-wrap gap-2">
               <Button
-                variant={selectedFileType === 'Скачать' ? "default" : "outline"}
-                onClick={() => setSelectedFileType('Скачать')}
+                variant={!selectedModType ? "default" : "outline"}
+                onClick={() => setSelectedModType(null)}
                 className="neon-border"
               >
-                Скачать
+                Всё
               </Button>
-              <Button
-                variant={selectedFileType === 'Файлы игры' ? "default" : "outline"}
-                onClick={() => setSelectedFileType('Файлы игры')}
-                className="neon-border"
-              >
-                Файлы игры
-              </Button>
+              {currentContentType.subcategories.map((modType) => (
+                <Button
+                  key={modType}
+                  variant={selectedModType === modType ? "default" : "outline"}
+                  onClick={() => setSelectedModType(modType)}
+                  className="neon-border"
+                >
+                  {modType}
+                </Button>
+              ))}
             </div>
           </div>
         )}
