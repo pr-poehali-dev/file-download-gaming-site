@@ -99,8 +99,8 @@ export default function Index() {
       <header className="border-b border-primary/20 backdrop-blur-sm sticky top-0 z-50 bg-background/80">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-4xl font-black glitch neon-glow" data-text="CYBER DOWNLOAD">
-              CYBER DOWNLOAD
+            <h1 className="text-4xl font-black glitch neon-glow" data-text="BOX_GAME">
+              BOX_GAME
             </h1>
             <div className="flex items-center gap-4">
               <div className="relative w-64">
@@ -258,7 +258,7 @@ export default function Index() {
       <footer className="border-t border-primary/20 mt-16">
         <div className="container mx-auto px-4 py-8 text-center">
           <p className="text-sm text-muted-foreground">
-            © 2025 CYBER DOWNLOAD. Портал для скачивания игр, модов и контента.
+            © 2025 BOX_GAME. Портал для скачивания игр, модов и контента.
           </p>
         </div>
       </footer>
