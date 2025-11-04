@@ -14,12 +14,9 @@ import {
 
 const categories = [
   { id: 'games', name: 'Игры', icon: 'Gamepad2', color: 'text-[hsl(var(--primary))]' },
-  { id: 'mods', name: 'Моды', icon: 'Package', color: 'text-[hsl(var(--secondary))]', subcategories: ['Оружие', 'Транспорт', 'Текстуры', 'Карты', 'Скины'] },
+  { id: 'mods', name: 'Моды', icon: 'Package', color: 'text-[hsl(var(--secondary))]', subcategories: ['Оружие', 'Транспорт', 'Текстуры', 'Карты', 'Скины', 'Персонажи'] },
   { id: 'scripts', name: 'Скрипты', icon: 'Code', color: 'text-[hsl(var(--accent))]' },
-  { id: 'textures', name: 'Текстуры', icon: 'Image', color: 'text-[hsl(var(--primary))]' },
-  { id: 'transport', name: 'Транспорт', icon: 'Car', color: 'text-[hsl(var(--secondary))]' },
-  { id: 'cheats', name: 'Читы', icon: 'Shield', color: 'text-[hsl(var(--accent))]' },
-  { id: 'weapons', name: 'Оружие', icon: 'Sword', color: 'text-[hsl(var(--primary))]' },
+  { id: 'cheats', name: 'Читы', icon: 'Shield', color: 'text-[hsl(var(--primary))]' },
   { id: 'info', name: 'Информация', icon: 'Info', color: 'text-[hsl(var(--secondary))]' },
 ];
 
