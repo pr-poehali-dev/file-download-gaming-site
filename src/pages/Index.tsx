@@ -185,12 +185,14 @@ export default function Index() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(null);
+  const [selectedFileType, setSelectedFileType] = useState<string | null>(null);
 
   const filteredFiles = mockFiles.filter(file => {
     const matchesCategory = !selectedCategory || file.category === selectedCategory;
     const matchesSearch = !searchQuery || file.name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesSubcategory = !selectedSubcategory || file.subcategory === selectedSubcategory;
-    return matchesCategory && matchesSearch && matchesSubcategory;
+    const matchesFileType = !selectedFileType || (file as any).type === selectedFileType;
+    return matchesCategory && matchesSearch && matchesSubcategory && matchesFileType;
   });
 
   const currentCategory = categories.find(c => c.id === selectedCategory);
@@ -240,6 +242,7 @@ export default function Index() {
               onClick={() => {
                 setSelectedCategory(selectedCategory === category.id ? null : category.id);
                 setSelectedSubcategory(null);
+                setSelectedFileType(null);
               }}
             >
               <CardContent className="p-6 text-center">
@@ -251,24 +254,62 @@ export default function Index() {
         </div>
 
         {currentCategory?.subcategories && (
-          <div className="mb-6 flex flex-wrap gap-2">
-            <Button
-              variant={!selectedSubcategory ? "default" : "outline"}
-              onClick={() => setSelectedSubcategory(null)}
-              className="neon-border-secondary"
-            >
-              Все
-            </Button>
-            {currentCategory.subcategories.map((sub) => (
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-primary">Выберите игру:</h3>
+            <div className="flex flex-wrap gap-2 mb-4">
               <Button
-                key={sub}
-                variant={selectedSubcategory === sub ? "default" : "outline"}
-                onClick={() => setSelectedSubcategory(sub)}
+                variant={!selectedSubcategory ? "default" : "outline"}
+                onClick={() => {
+                  setSelectedSubcategory(null);
+                  setSelectedFileType(null);
+                }}
                 className="neon-border-secondary"
               >
-                {sub}
+                Все игры
               </Button>
-            ))}
+              {currentCategory.subcategories.map((sub) => (
+                <Button
+                  key={sub}
+                  variant={selectedSubcategory === sub ? "default" : "outline"}
+                  onClick={() => {
+                    setSelectedSubcategory(sub);
+                    setSelectedFileType(null);
+                  }}
+                  className="neon-border-secondary"
+                >
+                  {sub}
+                </Button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {selectedSubcategory && selectedCategory === 'games' && (
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-secondary">Тип файлов:</h3>
+            <div className="flex flex-wrap gap-2">
+              <Button
+                variant={!selectedFileType ? "default" : "outline"}
+                onClick={() => setSelectedFileType(null)}
+                className="neon-border"
+              >
+                Всё
+              </Button>
+              <Button
+                variant={selectedFileType === 'Скачать' ? "default" : "outline"}
+                onClick={() => setSelectedFileType('Скачать')}
+                className="neon-border"
+              >
+                Скачать
+              </Button>
+              <Button
+                variant={selectedFileType === 'Файлы игры' ? "default" : "outline"}
+                onClick={() => setSelectedFileType('Файлы игры')}
+                className="neon-border"
+              >
+                Файлы игры
+              </Button>
+            </div>
           </div>
         )}
 
