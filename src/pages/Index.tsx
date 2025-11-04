@@ -23,9 +23,10 @@ const categories = [
 const mockFiles = [
   {
     id: 1,
-    name: 'Grand Theft Auto San Andreas',
+    name: 'GTA San Andreas - Полная версия',
     category: 'games',
     subcategory: 'GTA San Andreas',
+    type: 'Скачать',
     size: '4.7 GB',
     downloads: 125420,
     rating: 4.9,
@@ -33,43 +34,102 @@ const mockFiles = [
   },
   {
     id: 2,
-    name: 'The Sims 4',
+    name: 'GTA San Andreas - Сохранения 100%',
+    category: 'games',
+    subcategory: 'GTA San Andreas',
+    type: 'Файлы игры',
+    size: '12 MB',
+    downloads: 45230,
+    rating: 4.6,
+    version: '1.0',
+  },
+  {
+    id: 3,
+    name: 'The Sims 4 - Базовая игра',
     category: 'games',
     subcategory: 'The Sims 4',
+    type: 'Скачать',
     size: '18 GB',
     downloads: 98340,
     rating: 4.7,
     version: '1.98',
   },
   {
-    id: 3,
-    name: "Garry's Mod",
+    id: 4,
+    name: 'The Sims 4 - Пользовательский контент',
+    category: 'games',
+    subcategory: 'The Sims 4',
+    type: 'Файлы игры',
+    size: '850 MB',
+    downloads: 34120,
+    rating: 4.5,
+    version: '1.0',
+  },
+  {
+    id: 5,
+    name: "Garry's Mod - Полная версия",
     category: 'games',
     subcategory: "Garry's Mod",
+    type: 'Скачать',
     size: '5.2 GB',
     downloads: 87650,
     rating: 4.8,
     version: '2023.11',
   },
   {
-    id: 4,
+    id: 6,
+    name: "Garry's Mod - Аддоны и карты",
+    category: 'games',
+    subcategory: "Garry's Mod",
+    type: 'Файлы игры',
+    size: '2.1 GB',
+    downloads: 56340,
+    rating: 4.7,
+    version: '1.0',
+  },
+  {
+    id: 7,
     name: 'Minecraft Java Edition',
     category: 'games',
     subcategory: 'Minecraft',
+    type: 'Скачать',
     size: '1.2 GB',
     downloads: 234567,
     rating: 5.0,
     version: '1.20.4',
   },
   {
-    id: 5,
-    name: 'Terraria',
+    id: 8,
+    name: 'Minecraft - Текстуры и шейдеры',
+    category: 'games',
+    subcategory: 'Minecraft',
+    type: 'Файлы игры',
+    size: '650 MB',
+    downloads: 89450,
+    rating: 4.8,
+    version: '1.0',
+  },
+  {
+    id: 9,
+    name: 'Terraria - Полная версия',
     category: 'games',
     subcategory: 'Terraria',
+    type: 'Скачать',
     size: '450 MB',
     downloads: 156780,
     rating: 4.9,
     version: '1.4.4',
+  },
+  {
+    id: 10,
+    name: 'Terraria - Миры и персонажи',
+    category: 'games',
+    subcategory: 'Terraria',
+    type: 'Файлы игры',
+    size: '45 MB',
+    downloads: 67890,
+    rating: 4.6,
+    version: '1.0',
   },
   {
     id: 6,
@@ -226,6 +286,11 @@ export default function Index() {
                 </div>
 
                 <div className="space-y-3 mb-4">
+                  {(file as any).type && (
+                    <Badge variant="default" className="mb-2 bg-accent text-background">
+                      {(file as any).type}
+                    </Badge>
+                  )}
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Icon name="HardDrive" size={16} />
                     <span>{file.size}</span>
