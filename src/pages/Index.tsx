@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sheet";
 
 const categories = [
-  { id: 'games', name: 'Игры', icon: 'Gamepad2', color: 'text-[hsl(var(--primary))]' },
+  { id: 'games', name: 'Игры', icon: 'Gamepad2', color: 'text-[hsl(var(--primary))]', subcategories: ['GTA San Andreas', 'The Sims 4', "Garry's Mod", 'Minecraft', 'Terraria'] },
   { id: 'mods', name: 'Моды', icon: 'Package', color: 'text-[hsl(var(--secondary))]', subcategories: ['Оружие', 'Транспорт', 'Текстуры', 'Карты', 'Скины', 'Персонажи'] },
   { id: 'scripts', name: 'Скрипты', icon: 'Code', color: 'text-[hsl(var(--accent))]' },
   { id: 'cheats', name: 'Читы', icon: 'Shield', color: 'text-[hsl(var(--primary))]' },
@@ -25,6 +25,7 @@ const mockFiles = [
     id: 1,
     name: 'Grand Theft Auto San Andreas',
     category: 'games',
+    subcategory: 'GTA San Andreas',
     size: '4.7 GB',
     downloads: 125420,
     rating: 4.9,
@@ -34,6 +35,7 @@ const mockFiles = [
     id: 2,
     name: 'The Sims 4',
     category: 'games',
+    subcategory: 'The Sims 4',
     size: '18 GB',
     downloads: 98340,
     rating: 4.7,
@@ -43,6 +45,7 @@ const mockFiles = [
     id: 3,
     name: "Garry's Mod",
     category: 'games',
+    subcategory: "Garry's Mod",
     size: '5.2 GB',
     downloads: 87650,
     rating: 4.8,
@@ -52,6 +55,7 @@ const mockFiles = [
     id: 4,
     name: 'Minecraft Java Edition',
     category: 'games',
+    subcategory: 'Minecraft',
     size: '1.2 GB',
     downloads: 234567,
     rating: 5.0,
@@ -61,6 +65,7 @@ const mockFiles = [
     id: 5,
     name: 'Terraria',
     category: 'games',
+    subcategory: 'Terraria',
     size: '450 MB',
     downloads: 156780,
     rating: 4.9,
