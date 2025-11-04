@@ -117,6 +117,15 @@ export default function Index() {
         </div>
       </header>
 
+      <div className="relative w-full h-64 md:h-80 overflow-hidden mb-8">
+        <img 
+          src="https://cdn.poehali.dev/files/13e217ab-dd17-43dd-a93e-92895f8e0617.jpg" 
+          alt="Cyberpunk Gaming Banner" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
+      </div>
+
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {categories.map((category) => (
