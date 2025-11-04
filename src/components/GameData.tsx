@@ -25,8 +25,8 @@ export const mockFiles = [
     downloads: 125420,
     rating: 4.9,
     version: '1.0',
-    fileUrl: 'https://example.com/gta-sa.torrent',
-    fileType: 'torrent',
+    fileUrl: 'https://drive.google.com/uc?export=download&id=1K39kTz6Eoof3wD24SnBQKGkbAKIajyQd',
+    fileType: 'direct',
   },
   {
     id: 14,
