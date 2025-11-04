@@ -19,6 +19,8 @@ interface FileCardProps {
     rating: number;
     version: string;
     category?: string;
+    fileUrl?: string;
+    fileType?: 'direct' | 'torrent' | 'upload';
   };
 }
 
@@ -88,16 +90,33 @@ export default function FileCard({ file }: FileCardProps) {
                     требованиях к системе, инструкцию по установке и другие важные детали.
                   </p>
                 </div>
-                <Button className="w-full neon-border" size="lg">
-                  <Icon name="Download" className="mr-2" size={18} />
-                  Скачать файл
-                </Button>
+                {file.fileUrl ? (
+                  <a href={file.fileUrl} download target="_blank" rel="noopener noreferrer">
+                    <Button className="w-full neon-border" size="lg">
+                      <Icon name="Download" className="mr-2" size={18} />
+                      {file.fileType === 'torrent' ? 'Скачать торрент' : 'Скачать файл'}
+                    </Button>
+                  </a>
+                ) : (
+                  <Button className="w-full neon-border" size="lg" disabled>
+                    <Icon name="AlertCircle" className="mr-2" size={18} />
+                    Файл недоступен
+                  </Button>
+                )}
               </div>
             </SheetContent>
           </Sheet>
-          <Button variant="outline" size="icon" className="neon-border-secondary">
-            <Icon name="Download" size={16} />
-          </Button>
+          {file.fileUrl ? (
+            <a href={file.fileUrl} download target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="icon" className="neon-border-secondary">
+                <Icon name="Download" size={16} />
+              </Button>
+            </a>
+          ) : (
+            <Button variant="outline" size="icon" className="neon-border-secondary" disabled>
+              <Icon name="X" size={16} />
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>
