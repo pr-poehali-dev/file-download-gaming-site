@@ -15,7 +15,7 @@ import {
 const gamesList = ['GTA San Andreas', 'The Sims 4', "Garry's Mod", 'Minecraft', 'Terraria'];
 
 const contentTypes = [
-  { id: 'download', name: 'Скачать', icon: 'Download' },
+  { id: 'download', name: 'Скачать', icon: 'Download', subcategories: ['Оригинал', 'Сборка'] },
   { id: 'mods', name: 'Моды', icon: 'Package', subcategories: ['Оружие', 'Транспорт', 'Карты', 'Скины', 'Персонажи'] },
   { id: 'scripts', name: 'Скрипты', icon: 'Code' },
   { id: 'cheats', name: 'Читы', icon: 'Shield' },
@@ -29,10 +29,11 @@ const categories = [
 const mockFiles = [
   {
     id: 1,
-    name: 'GTA San Andreas - Полная версия',
+    name: 'GTA San Andreas - Оригинал',
     category: 'games',
     game: 'GTA San Andreas',
     contentType: 'download',
+    downloadType: 'Оригинал',
     modType: null,
     size: '4.7 GB',
     downloads: 125420,
@@ -40,11 +41,25 @@ const mockFiles = [
     version: '1.0',
   },
   {
+    id: 14,
+    name: 'GTA San Andreas - Сборка с модами',
+    category: 'games',
+    game: 'GTA San Andreas',
+    contentType: 'download',
+    downloadType: 'Сборка',
+    modType: null,
+    size: '8.2 GB',
+    downloads: 98340,
+    rating: 4.8,
+    version: '2.0',
+  },
+  {
     id: 2,
     name: 'GTA San Andreas - Сохранения 100%',
     category: 'games',
     game: 'GTA San Andreas',
     contentType: 'info',
+    downloadType: null,
     modType: null,
     size: '12 MB',
     downloads: 45230,
@@ -53,14 +68,28 @@ const mockFiles = [
   },
   {
     id: 3,
-    name: 'The Sims 4 - Базовая игра',
+    name: 'The Sims 4 - Оригинал',
     category: 'games',
     game: 'The Sims 4',
     contentType: 'download',
+    downloadType: 'Оригинал',
     modType: null,
     size: '18 GB',
     downloads: 98340,
     rating: 4.7,
+    version: '1.98',
+  },
+  {
+    id: 15,
+    name: 'The Sims 4 - Сборка со всеми DLC',
+    category: 'games',
+    game: 'The Sims 4',
+    contentType: 'download',
+    downloadType: 'Сборка',
+    modType: null,
+    size: '45 GB',
+    downloads: 156780,
+    rating: 4.9,
     version: '1.98',
   },
   {
@@ -69,6 +98,7 @@ const mockFiles = [
     category: 'games',
     game: 'The Sims 4',
     contentType: 'mods',
+    downloadType: null,
     modType: 'Карты',
     size: '850 MB',
     downloads: 34120,
@@ -77,14 +107,28 @@ const mockFiles = [
   },
   {
     id: 5,
-    name: "Garry's Mod - Полная версия",
+    name: "Garry's Mod - Оригинал",
     category: 'games',
     game: "Garry's Mod",
     contentType: 'download',
+    downloadType: 'Оригинал',
     modType: null,
     size: '5.2 GB',
     downloads: 87650,
     rating: 4.8,
+    version: '2023.11',
+  },
+  {
+    id: 16,
+    name: "Garry's Mod - Сборка с аддонами",
+    category: 'games',
+    game: "Garry's Mod",
+    contentType: 'download',
+    downloadType: 'Сборка',
+    modType: null,
+    size: '12.5 GB',
+    downloads: 67890,
+    rating: 4.7,
     version: '2023.11',
   },
   {
@@ -93,6 +137,7 @@ const mockFiles = [
     category: 'games',
     game: "Garry's Mod",
     contentType: 'mods',
+    downloadType: null,
     modType: 'Оружие',
     size: '2.1 GB',
     downloads: 56340,
@@ -101,14 +146,28 @@ const mockFiles = [
   },
   {
     id: 7,
-    name: 'Minecraft Java Edition',
+    name: 'Minecraft - Оригинал',
     category: 'games',
     game: 'Minecraft',
     contentType: 'download',
+    downloadType: 'Оригинал',
     modType: null,
     size: '1.2 GB',
     downloads: 234567,
     rating: 5.0,
+    version: '1.20.4',
+  },
+  {
+    id: 17,
+    name: 'Minecraft - Сборка с модами',
+    category: 'games',
+    game: 'Minecraft',
+    contentType: 'download',
+    downloadType: 'Сборка',
+    modType: null,
+    size: '3.8 GB',
+    downloads: 189450,
+    rating: 4.9,
     version: '1.20.4',
   },
   {
@@ -117,6 +176,7 @@ const mockFiles = [
     category: 'games',
     game: 'Minecraft',
     contentType: 'scripts',
+    downloadType: null,
     modType: null,
     size: '650 MB',
     downloads: 89450,
@@ -125,14 +185,28 @@ const mockFiles = [
   },
   {
     id: 9,
-    name: 'Terraria - Полная версия',
+    name: 'Terraria - Оригинал',
     category: 'games',
     game: 'Terraria',
     contentType: 'download',
+    downloadType: 'Оригинал',
     modType: null,
     size: '450 MB',
     downloads: 156780,
     rating: 4.9,
+    version: '1.4.4',
+  },
+  {
+    id: 18,
+    name: 'Terraria - Сборка с модами',
+    category: 'games',
+    game: 'Terraria',
+    contentType: 'download',
+    downloadType: 'Сборка',
+    modType: null,
+    size: '1.2 GB',
+    downloads: 123456,
+    rating: 4.8,
     version: '1.4.4',
   },
   {
@@ -141,6 +215,7 @@ const mockFiles = [
     category: 'games',
     game: 'Terraria',
     contentType: 'cheats',
+    downloadType: null,
     modType: null,
     size: '45 MB',
     downloads: 67890,
@@ -153,6 +228,7 @@ const mockFiles = [
     category: 'games',
     game: 'GTA San Andreas',
     contentType: 'mods',
+    downloadType: null,
     modType: 'Оружие',
     size: '2.5 GB',
     downloads: 15420,
@@ -165,6 +241,7 @@ const mockFiles = [
     category: 'games',
     game: 'GTA San Andreas',
     contentType: 'mods',
+    downloadType: null,
     modType: 'Транспорт',
     size: '150 MB',
     downloads: 23456,
@@ -177,6 +254,7 @@ const mockFiles = [
     category: 'games',
     game: 'Minecraft',
     contentType: 'mods',
+    downloadType: null,
     modType: 'Скины',
     size: '45 MB',
     downloads: 12890,
@@ -190,6 +268,7 @@ export default function Index() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
   const [selectedContentType, setSelectedContentType] = useState<string | null>(null);
+  const [selectedDownloadType, setSelectedDownloadType] = useState<string | null>(null);
   const [selectedModType, setSelectedModType] = useState<string | null>(null);
 
   const filteredFiles = mockFiles.filter(file => {
@@ -197,8 +276,9 @@ export default function Index() {
     const matchesSearch = !searchQuery || file.name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesGame = !selectedGame || (file as any).game === selectedGame;
     const matchesContentType = !selectedContentType || (file as any).contentType === selectedContentType;
+    const matchesDownloadType = !selectedDownloadType || (file as any).downloadType === selectedDownloadType;
     const matchesModType = !selectedModType || (file as any).modType === selectedModType;
-    return matchesCategory && matchesSearch && matchesGame && matchesContentType && matchesModType;
+    return matchesCategory && matchesSearch && matchesGame && matchesContentType && matchesDownloadType && matchesModType;
   });
 
   const currentContentType = contentTypes.find(c => c.id === selectedContentType);
@@ -236,11 +316,11 @@ export default function Index() {
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 gap-4 mb-8">
           {categories.map((category) => (
             <Card
               key={category.id}
-              className={`cursor-pointer transition-all duration-300 bg-card border-2 hover:scale-105 ${
+              className={`cursor-pointer transition-all duration-300 bg-card border-2 hover:scale-[1.02] ${
                 selectedCategory === category.id
                   ? 'border-primary neon-border'
                   : 'border-primary/20 hover:border-primary/50'
@@ -249,12 +329,13 @@ export default function Index() {
                 setSelectedCategory(selectedCategory === category.id ? null : category.id);
                 setSelectedGame(null);
                 setSelectedContentType(null);
+                setSelectedDownloadType(null);
                 setSelectedModType(null);
               }}
             >
-              <CardContent className="p-6 text-center">
-                <Icon name={category.icon} className={`mx-auto mb-3 ${category.color}`} size={32} />
-                <h3 className="font-bold text-lg">{category.name}</h3>
+              <CardContent className="p-10 text-center">
+                <Icon name={category.icon} className={`mx-auto mb-4 ${category.color}`} size={64} />
+                <h3 className="font-bold text-3xl">{category.name}</h3>
               </CardContent>
             </Card>
           ))}
@@ -282,6 +363,7 @@ export default function Index() {
                   onClick={() => {
                     setSelectedGame(game);
                     setSelectedContentType(null);
+                    setSelectedDownloadType(null);
                     setSelectedModType(null);
                   }}
                   className="neon-border-secondary"
@@ -301,6 +383,7 @@ export default function Index() {
                 variant={!selectedContentType ? "default" : "outline"}
                 onClick={() => {
                   setSelectedContentType(null);
+                  setSelectedDownloadType(null);
                   setSelectedModType(null);
                 }}
                 className="neon-border"
@@ -313,12 +396,38 @@ export default function Index() {
                   variant={selectedContentType === type.id ? "default" : "outline"}
                   onClick={() => {
                     setSelectedContentType(type.id);
+                    setSelectedDownloadType(null);
                     setSelectedModType(null);
                   }}
                   className="neon-border"
                 >
                   <Icon name={type.icon} className="mr-2" size={16} />
                   {type.name}
+                </Button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {selectedContentType === 'download' && currentContentType?.subcategories && (
+          <div className="mb-6">
+            <h3 className="text-lg font-semibold mb-3 text-accent">Тип версии:</h3>
+            <div className="flex flex-wrap gap-2">
+              <Button
+                variant={!selectedDownloadType ? "default" : "outline"}
+                onClick={() => setSelectedDownloadType(null)}
+                className="neon-border"
+              >
+                Всё
+              </Button>
+              {currentContentType.subcategories.map((downloadType) => (
+                <Button
+                  key={downloadType}
+                  variant={selectedDownloadType === downloadType ? "default" : "outline"}
+                  onClick={() => setSelectedDownloadType(downloadType)}
+                  className="neon-border"
+                >
+                  {downloadType}
                 </Button>
               ))}
             </div>
