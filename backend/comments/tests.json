@@ -1,0 +1,30 @@
+{
+  "tests": [
+    {
+      "name": "Get comments for file",
+      "method": "GET",
+      "queryStringParameters": {
+        "file_id": "1"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "comments": "array"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Create comment (should fail without auth)",
+      "method": "POST",
+      "body": {
+        "file_id": 1,
+        "content": "Great game!",
+        "rating": 5
+      },
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

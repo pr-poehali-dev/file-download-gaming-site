@@ -6,6 +6,8 @@ import Icon from '@/components/ui/icon';
 import { categories, mockFiles } from '@/components/GameData';
 import FilterSection from '@/components/FilterSection';
 import FileCard from '@/components/FileCard';
+import AuthDialog from '@/components/AuthDialog';
+import { authService } from '@/lib/auth';
 
 export default function Index() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -14,6 +16,8 @@ export default function Index() {
   const [selectedContentType, setSelectedContentType] = useState<string | null>(null);
   const [selectedDownloadType, setSelectedDownloadType] = useState<string | null>(null);
   const [selectedModType, setSelectedModType] = useState<string | null>(null);
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const [user, setUser] = useState(authService.getUser());
 
   const filteredFiles = mockFiles.filter(file => {
     const matchesCategory = !selectedCategory || file.category === selectedCategory;
@@ -43,9 +47,28 @@ export default function Index() {
                   className="pl-10 neon-border-secondary"
                 />
               </div>
-              <Button variant="outline" size="icon" className="neon-border-secondary">
-                <Icon name="User" size={20} />
-              </Button>
+              {user ? (
+                <Button
+                  variant="outline"
+                  className="neon-border-secondary"
+                  onClick={() => {
+                    authService.logout();
+                    setUser(null);
+                  }}
+                >
+                  <Icon name="LogOut" size={18} className="mr-2" />
+                  {user.username}
+                </Button>
+              ) : (
+                <Button
+                  variant="outline"
+                  className="neon-border-secondary"
+                  onClick={() => setAuthDialogOpen(true)}
+                >
+                  <Icon name="User" size={18} className="mr-2" />
+                  Войти
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -111,6 +134,12 @@ export default function Index() {
           </div>
         )}
       </div>
+
+      <AuthDialog
+        open={authDialogOpen}
+        onOpenChange={setAuthDialogOpen}
+        onSuccess={() => setUser(authService.getUser())}
+      />
     </div>
   );
 }

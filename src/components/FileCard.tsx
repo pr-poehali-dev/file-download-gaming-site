@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import CommentsSection from './CommentsSection';
+import AuthDialog from './AuthDialog';
+import { authService } from '@/lib/auth';
 
 interface FileCardProps {
   file: {
@@ -25,6 +29,9 @@ interface FileCardProps {
 }
 
 export default function FileCard({ file }: FileCardProps) {
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const [user, setUser] = useState(authService.getUser());
+
   return (
     <Card className="group hover:border-primary/50 transition-all duration-300 bg-card border border-primary/20 hover:shadow-lg hover:shadow-primary/20">
       <CardContent className="p-6">
@@ -103,6 +110,12 @@ export default function FileCard({ file }: FileCardProps) {
                     Файл недоступен
                   </Button>
                 )}
+                <div className="border-t pt-6 mt-6">
+                  <CommentsSection
+                    fileId={file.id}
+                    onLoginRequired={() => setAuthDialogOpen(true)}
+                  />
+                </div>
               </div>
             </SheetContent>
           </Sheet>
@@ -119,6 +132,12 @@ export default function FileCard({ file }: FileCardProps) {
           )}
         </div>
       </CardContent>
+
+      <AuthDialog
+        open={authDialogOpen}
+        onOpenChange={setAuthDialogOpen}
+        onSuccess={() => setUser(authService.getUser())}
+      />
     </Card>
   );
 }
