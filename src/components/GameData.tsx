@@ -55,7 +55,7 @@ export const mockFiles = [
     downloads: 45230,
     rating: 4.7,
     version: '1.0',
-    fileUrl: '',
+    fileUrl: 'https://drive.google.com/drive/folders/1BJHA14OsTQydJnSpD3VzsAqsekf7Qsvd?usp=drive_link',
     fileType: 'direct',
   },
   {
