@@ -1,4 +1,37 @@
-export const gamesList = ['GTA San Andreas', 'The Sims 4', "Garry's Mod", 'Minecraft', 'Terraria'];
+export const gamesData = [
+  {
+    id: 'gta-sa',
+    name: 'GTA San Andreas',
+    image: 'https://cdn.poehali.dev/projects/a5a6bbac-c8c2-43be-b5cd-e4454e318ae4/files/e6fda6ad-4058-4ba7-93e8-49b38123d116.jpg',
+    description: 'Легендарная игра с открытым миром'
+  },
+  {
+    id: 'sims4',
+    name: 'The Sims 4',
+    image: 'https://cdn.poehali.dev/projects/a5a6bbac-c8c2-43be-b5cd-e4454e318ae4/files/2f914ff7-3f32-4bf5-8d89-b19c7383b0c9.jpg',
+    description: 'Симулятор жизни от EA Games'
+  },
+  {
+    id: 'gmod',
+    name: "Garry's Mod",
+    image: 'https://cdn.poehali.dev/projects/a5a6bbac-c8c2-43be-b5cd-e4454e318ae4/files/5896de38-8a52-4650-9734-4fe6446ad7fe.jpg',
+    description: 'Песочница с безграничными возможностями'
+  },
+  {
+    id: 'minecraft',
+    name: 'Minecraft',
+    image: 'https://cdn.poehali.dev/projects/a5a6bbac-c8c2-43be-b5cd-e4454e318ae4/files/cb54d5cf-189d-4aae-8e08-90484e164809.jpg',
+    description: 'Создавай и исследуй кубический мир'
+  },
+  {
+    id: 'terraria',
+    name: 'Terraria',
+    image: 'https://cdn.poehali.dev/projects/a5a6bbac-c8c2-43be-b5cd-e4454e318ae4/files/ef2da7e4-c45a-4dcc-a2be-511572b4c911.jpg',
+    description: '2D приключения и выживание'
+  }
+];
+
+export const gamesList = gamesData.map(g => g.name);
 
 export const contentTypes = [
   { id: 'download', name: 'Скачать', icon: 'Download', subcategories: ['Оригинал', 'Сборка'] },

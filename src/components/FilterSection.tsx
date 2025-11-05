@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
-import { gamesList, contentTypes } from './GameData';
+import { gamesData, contentTypes } from './GameData';
 
 interface FilterSectionProps {
   selectedCategory: string | null;
@@ -30,35 +30,42 @@ export default function FilterSection({
   return (
     <>
       {selectedCategory === 'games' && (
-        <div className="mb-6">
-          <h3 className="text-lg font-semibold mb-3 text-primary">Выберите игру:</h3>
-          <div className="flex flex-wrap gap-2 mb-4">
-            <Button
-              variant={!selectedGame ? "default" : "outline"}
-              onClick={() => {
-                setSelectedGame(null);
-                setSelectedContentType(null);
-                setSelectedDownloadType(null);
-                setSelectedModType(null);
-              }}
-              className="neon-border-secondary"
-            >
-              Все игры
-            </Button>
-            {gamesList.map((game) => (
-              <Button
-                key={game}
-                variant={selectedGame === game ? "default" : "outline"}
+        <div className="mb-8">
+          <h3 className="text-2xl font-bold mb-6 text-primary">Выберите игру:</h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {gamesData.map((game) => (
+              <button
+                key={game.id}
                 onClick={() => {
-                  setSelectedGame(game);
+                  setSelectedGame(game.name);
                   setSelectedContentType(null);
                   setSelectedDownloadType(null);
                   setSelectedModType(null);
                 }}
-                className="neon-border-secondary"
+                className={`group relative overflow-hidden rounded-xl transition-all duration-300 ${
+                  selectedGame === game.name
+                    ? 'ring-4 ring-primary shadow-[0_0_30px_rgba(var(--primary-rgb),0.5)] scale-105'
+                    : 'hover:scale-105 hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)]'
+                }`}
               >
-                {game}
-              </Button>
+                <div className="aspect-square relative">
+                  <img
+                    src={game.image}
+                    alt={game.name}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h4 className="font-bold text-white text-lg mb-1">{game.name}</h4>
+                    <p className="text-white/80 text-sm">{game.description}</p>
+                  </div>
+                  {selectedGame === game.name && (
+                    <div className="absolute top-2 right-2 bg-primary rounded-full p-2">
+                      <Icon name="Check" size={20} className="text-primary-foreground" />
+                    </div>
+                  )}
+                </div>
+              </button>
             ))}
           </div>
         </div>
