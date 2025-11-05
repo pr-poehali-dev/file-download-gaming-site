@@ -25,7 +25,7 @@ export const mockFiles = [
     downloads: 125420,
     rating: 4.9,
     version: '1.0',
-    fileUrl: 'https://drive.google.com/uc?export=download&id=1K39kTz6Eoof3wD24SnBQKGkbAKIajyQd',
+    fileUrl: 'https://drive.google.com/drive/folders/1E-XC8YotGM2ehlbZPN8Qmi_rtxg4NerB?usp=drive_link',
     fileType: 'direct',
   },
   {
@@ -40,7 +40,7 @@ export const mockFiles = [
     downloads: 98340,
     rating: 4.8,
     version: '2.0',
-    fileUrl: '',
+    fileUrl: 'https://drive.google.com/file/d/1K39kTz6Eoof3wD24SnBQKGkbAKIajyQd/view?usp=drive_link',
     fileType: 'direct',
   },
   {
