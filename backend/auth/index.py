@@ -8,7 +8,7 @@ import psycopg
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Business: User authentication - registration and login
+    Business: User authentication - registration and login  
     Args: event with httpMethod (POST), body with action (register/login)
     Returns: HTTP response with JWT token or error
     '''
