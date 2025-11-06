@@ -69,7 +69,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 
                 password_hash = hashlib.sha256(password.encode()).hexdigest()
                 
-                cur.execute("SELECT id FROM users WHERE email = %s OR username = %s", (email, username))
+                cur.execute("SELECT id FROM t_p79167660_file_download_gaming.users WHERE email = %s OR username = %s", (email, username))
                 if cur.fetchone():
                     return {
                         'statusCode': 400,
@@ -78,7 +78,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     }
                 
                 cur.execute(
-                    "INSERT INTO users (username, email, password_hash) VALUES (%s, %s, %s) RETURNING id, username, email, created_at",
+                    "INSERT INTO t_p79167660_file_download_gaming.users (username, email, password_hash) VALUES (%s, %s, %s) RETURNING id, username, email, created_at",
                     (username, email, password_hash)
                 )
                 user = cur.fetchone()
@@ -118,7 +118,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 password_hash = hashlib.sha256(password.encode()).hexdigest()
                 
                 cur.execute(
-                    "SELECT id, username, email, created_at FROM users WHERE email = %s AND password_hash = %s AND is_active = true",
+                    "SELECT id, username, email, created_at FROM t_p79167660_file_download_gaming.users WHERE email = %s AND password_hash = %s AND is_active = true",
                     (email, password_hash)
                 )
                 user = cur.fetchone()

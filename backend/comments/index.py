@@ -57,8 +57,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 cur.execute("""
                     SELECT c.id, c.content, c.rating, c.created_at, c.updated_at,
                            u.username, u.avatar_url, c.user_id
-                    FROM comments c
-                    JOIN users u ON c.user_id = u.id
+                    FROM t_p79167660_file_download_gaming.comments c
+                    JOIN t_p79167660_file_download_gaming.users u ON c.user_id = u.id
                     WHERE c.file_id = %s
                     ORDER BY c.created_at DESC
                 """, (int(file_id),))
@@ -119,7 +119,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                     }
                 
                 cur.execute("""
-                    INSERT INTO comments (user_id, file_id, content, rating)
+                    INSERT INTO t_p79167660_file_download_gaming.comments (user_id, file_id, content, rating)
                     VALUES (%s, %s, %s, %s)
                     RETURNING id, created_at
                 """, (user_data['user_id'], int(file_id), content, rating))
@@ -164,7 +164,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                         'body': json.dumps({'error': 'comment id required'})
                     }
                 
-                cur.execute("SELECT user_id FROM comments WHERE id = %s", (int(comment_id),))
+                cur.execute("SELECT user_id FROM t_p79167660_file_download_gaming.comments WHERE id = %s", (int(comment_id),))
                 comment = cur.fetchone()
                 
                 if not comment:
@@ -181,7 +181,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                         'body': json.dumps({'error': 'Not authorized'})
                     }
                 
-                cur.execute("UPDATE comments SET content = '[удалено]', rating = NULL WHERE id = %s", (int(comment_id),))
+                cur.execute("UPDATE t_p79167660_file_download_gaming.comments SET content = '[удалено]', rating = NULL WHERE id = %s", (int(comment_id),))
                 conn.commit()
                 
                 return {
