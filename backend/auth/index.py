@@ -8,7 +8,7 @@ import psycopg
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Business: User authentication - registration and login  
+    Business: User authentication - registration and login with JWT
     Args: event with httpMethod (POST), body with action (register/login)
     Returns: HTTP response with JWT token or error
     '''
@@ -43,7 +43,14 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         return {
             'statusCode': 500,
             'headers': {'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'},
-            'body': json.dumps({'error': 'Server configuration error'})
+            'body': json.dumps({
+                'error': 'Server configuration error',
+                'debug': {
+                    'has_dsn': bool(dsn),
+                    'has_jwt_secret': bool(jwt_secret),
+                    'env_keys': list(os.environ.keys())
+                }
+            })
         }
     
     with psycopg.connect(dsn) as conn:

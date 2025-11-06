@@ -12,7 +12,7 @@ def verify_token(token: str, jwt_secret: str) -> Optional[Dict]:
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     '''
-    Business: Manage comments - get, create, update, delete  
+    Business: Manage comments with JWT authentication - get, create, update, delete  
     Args: event with httpMethod (GET/POST/PUT/DELETE), headers with X-Auth-Token
     Returns: HTTP response with comments data or success status
     '''
