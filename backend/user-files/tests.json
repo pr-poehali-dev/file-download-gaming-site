@@ -1,0 +1,28 @@
+{
+  "tests": [
+    {
+      "name": "Get user files",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Upload file without auth",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "name": "Test File",
+        "game": "Minecraft",
+        "contentType": "download",
+        "size": "100 MB",
+        "version": "1.0",
+        "fileUrl": "https://example.com/file"
+      },
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}

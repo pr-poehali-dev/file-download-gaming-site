@@ -25,6 +25,8 @@ interface FileCardProps {
     category?: string;
     fileUrl?: string;
     fileType?: 'direct' | 'torrent' | 'upload';
+    isOfficial?: boolean;
+    author?: string;
   };
 }
 
@@ -41,6 +43,18 @@ export default function FileCard({ file }: FileCardProps) {
               {file.name}
             </h3>
             <div className="flex flex-wrap gap-2 mb-3">
+              {file.isOfficial && (
+                <Badge className="bg-gradient-to-r from-primary to-primary/80">
+                  <Icon name="CheckCircle2" size={14} className="mr-1" />
+                  Основной
+                </Badge>
+              )}
+              {!file.isOfficial && file.author && (
+                <Badge variant="secondary">
+                  <Icon name="User" size={14} className="mr-1" />
+                  {file.author}
+                </Badge>
+              )}
               <Badge variant="secondary" className="neon-border-secondary">
                 <Icon name="HardDrive" size={14} className="mr-1" />
                 {file.size}

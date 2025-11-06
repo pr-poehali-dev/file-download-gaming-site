@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -7,6 +7,7 @@ import { categories, mockFiles } from '@/components/GameData';
 import FilterSection from '@/components/FilterSection';
 import FileCard from '@/components/FileCard';
 import AuthDialog from '@/components/AuthDialog';
+import UploadFileDialog from '@/components/UploadFileDialog';
 import { authService } from '@/lib/auth';
 
 export default function Index() {
@@ -17,9 +18,46 @@ export default function Index() {
   const [selectedDownloadType, setSelectedDownloadType] = useState<string | null>(null);
   const [selectedModType, setSelectedModType] = useState<string | null>(null);
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
   const [user, setUser] = useState(authService.getUser());
+  const [userFiles, setUserFiles] = useState<any[]>([]);
 
-  const filteredFiles = mockFiles.filter(file => {
+  const loadUserFiles = async () => {
+    try {
+      const response = await fetch('https://functions.poehali.dev/5e26d7ac-3cae-4be0-ba5d-dc5c9abd9be5');
+      const data = await response.json();
+      if (data.files) {
+        const formatted = data.files.map((f: any) => ({
+          id: `user-${f.id}`,
+          name: f.name,
+          category: 'games',
+          game: f.game,
+          contentType: f.content_type,
+          downloadType: f.download_type,
+          modType: f.mod_type,
+          size: f.size,
+          downloads: f.downloads || 0,
+          rating: 0,
+          version: f.version,
+          fileUrl: f.file_url,
+          fileType: f.file_type,
+          isOfficial: false,
+          author: f.author
+        }));
+        setUserFiles(formatted);
+      }
+    } catch (error) {
+      console.error('Ошибка загрузки файлов:', error);
+    }
+  };
+
+  useEffect(() => {
+    loadUserFiles();
+  }, []);
+
+  const allFiles = [...mockFiles, ...userFiles];
+
+  const filteredFiles = allFiles.filter(file => {
     const matchesCategory = !selectedCategory || file.category === selectedCategory;
     const matchesSearch = !searchQuery || file.name.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesGame = !selectedGame || (file as any).game === selectedGame;
@@ -47,6 +85,15 @@ export default function Index() {
                   className="pl-10 neon-border-secondary"
                 />
               </div>
+              {user && (
+                <Button
+                  className="neon-border"
+                  onClick={() => setUploadDialogOpen(true)}
+                >
+                  <Icon name="Upload" size={18} className="mr-2" />
+                  Добавить файл
+                </Button>
+              )}
               {user ? (
                 <Button
                   variant="outline"
@@ -139,6 +186,12 @@ export default function Index() {
         open={authDialogOpen}
         onOpenChange={setAuthDialogOpen}
         onSuccess={() => setUser(authService.getUser())}
+      />
+      
+      <UploadFileDialog
+        open={uploadDialogOpen}
+        onOpenChange={setUploadDialogOpen}
+        onSuccess={loadUserFiles}
       />
     </div>
   );

@@ -60,6 +60,7 @@ export const mockFiles = [
     version: '1.0',
     fileUrl: 'https://drive.google.com/drive/folders/1E-XC8YotGM2ehlbZPN8Qmi_rtxg4NerB?usp=drive_link',
     fileType: 'direct',
+    isOfficial: true,
   },
   {
     id: 2,
@@ -75,6 +76,7 @@ export const mockFiles = [
     version: '2.0',
     fileUrl: 'https://drive.google.com/file/d/1K39kTz6Eoof3wD24SnBQKGkbAKIajyQd/view?usp=drive_link',
     fileType: 'direct',
+    isOfficial: true,
   },
   {
     id: 3,
@@ -90,6 +92,7 @@ export const mockFiles = [
     version: '1.0',
     fileUrl: 'https://drive.google.com/drive/folders/1BJHA14OsTQydJnSpD3VzsAqsekf7Qsvd?usp=drive_link',
     fileType: 'direct',
+    isOfficial: true,
   },
   {
     id: 4,
@@ -105,6 +108,7 @@ export const mockFiles = [
     version: '1.98',
     fileUrl: '',
     fileType: 'direct',
+    isOfficial: true,
   },
   {
     id: 5,
@@ -120,6 +124,7 @@ export const mockFiles = [
     version: '1.98',
     fileUrl: '',
     fileType: 'direct',
+    isOfficial: true,
   },
   {
     id: 6,
@@ -135,6 +140,7 @@ export const mockFiles = [
     version: '1.0',
     fileUrl: '',
     fileType: 'direct',
+    isOfficial: true,
   },
   {
     id: 7,
@@ -150,6 +156,7 @@ export const mockFiles = [
     version: '1.20.4',
     fileUrl: '',
     fileType: 'direct',
+    isOfficial: true,
   },
   {
     id: 8,
@@ -165,6 +172,7 @@ export const mockFiles = [
     version: '1.20.4',
     fileUrl: '',
     fileType: 'direct',
+    isOfficial: true,
   },
   {
     id: 9,
@@ -180,6 +188,7 @@ export const mockFiles = [
     version: '1.20.4',
     fileUrl: '',
     fileType: 'direct',
+    isOfficial: true,
   },
   {
     id: 10,
@@ -195,6 +204,7 @@ export const mockFiles = [
     version: '1.20.4',
     fileUrl: '',
     fileType: 'direct',
+    isOfficial: true,
   },
   {
     id: 11,
@@ -210,5 +220,6 @@ export const mockFiles = [
     version: '1.0',
     fileUrl: '',
     fileType: 'direct',
+    isOfficial: true,
   },
 ];
