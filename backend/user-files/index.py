@@ -1,5 +1,5 @@
 '''
-Business: Управление пользовательскими файлами - добавление и получение
+Business: Управление пользовательскими файлами - добавление и получение без авторизации
 Args: event - dict с httpMethod, body, queryStringParameters
       context - object с атрибутами request_id, function_name
 Returns: HTTP response dict с данными файлов
@@ -93,8 +93,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         
         cur.execute('''
             INSERT INTO t_p79167660_file_download_gaming.user_files 
-            (name, game, content_type, download_type, mod_type, size, version, file_url, file_type, author_name)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            (user_id, name, game, content_type, download_type, mod_type, size, version, file_url, file_type, author_name)
+            VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             RETURNING id, name, created_at
         ''', (
             body_data['name'],
@@ -114,6 +114,10 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         cur.close()
         conn.close()
         
+        result_dict = dict(result)
+        if result_dict.get('created_at'):
+            result_dict['created_at'] = result_dict['created_at'].isoformat()
+        
         return {
             'statusCode': 201,
             'headers': {
@@ -123,7 +127,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             'isBase64Encoded': False,
             'body': json.dumps({
                 'success': True,
-                'file': dict(result)
+                'file': result_dict
             })
         }
     
