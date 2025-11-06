@@ -85,15 +85,13 @@ export default function Index() {
                   className="pl-10 neon-border-secondary"
                 />
               </div>
-              {user && (
-                <Button
-                  className="neon-border"
-                  onClick={() => setUploadDialogOpen(true)}
-                >
-                  <Icon name="Upload" size={18} className="mr-2" />
-                  Добавить файл
-                </Button>
-              )}
+              <Button
+                className="neon-border"
+                onClick={() => setUploadDialogOpen(true)}
+              >
+                <Icon name="Upload" size={18} className="mr-2" />
+                Добавить файл
+              </Button>
               {user ? (
                 <Button
                   variant="outline"

@@ -23,6 +23,7 @@ export default function UploadFileDialog({ open, onOpenChange, onSuccess }: Uplo
   const [size, setSize] = useState('');
   const [version, setVersion] = useState('');
   const [fileUrl, setFileUrl] = useState('');
+  const [authorName, setAuthorName] = useState('');
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
@@ -32,18 +33,8 @@ export default function UploadFileDialog({ open, onOpenChange, onSuccess }: Uplo
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const user = authService.getUser();
-    if (!user) {
-      toast({
-        variant: 'destructive',
-        title: 'Ошибка',
-        description: 'Необходима авторизация'
-      });
-      return;
-    }
 
-    if (!name || !game || !contentType || !size || !version || !fileUrl) {
+    if (!name || !game || !contentType || !size || !version || !fileUrl || !authorName) {
       toast({
         variant: 'destructive',
         title: 'Ошибка',
@@ -58,8 +49,7 @@ export default function UploadFileDialog({ open, onOpenChange, onSuccess }: Uplo
       const response = await fetch('https://functions.poehali.dev/5e26d7ac-3cae-4be0-ba5d-dc5c9abd9be5', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'X-User-Id': user.id.toString()
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           name,
@@ -70,7 +60,8 @@ export default function UploadFileDialog({ open, onOpenChange, onSuccess }: Uplo
           size,
           version,
           fileUrl,
-          fileType: 'direct'
+          fileType: 'direct',
+          authorName
         })
       });
 
@@ -93,6 +84,7 @@ export default function UploadFileDialog({ open, onOpenChange, onSuccess }: Uplo
       setSize('');
       setVersion('');
       setFileUrl('');
+      setAuthorName('');
       onOpenChange(false);
       onSuccess();
     } catch (error: any) {
@@ -218,6 +210,17 @@ export default function UploadFileDialog({ open, onOpenChange, onSuccess }: Uplo
               value={fileUrl}
               onChange={(e) => setFileUrl(e.target.value)}
               placeholder="https://drive.google.com/..."
+              required
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="authorName">Ваше имя *</Label>
+            <Input
+              id="authorName"
+              value={authorName}
+              onChange={(e) => setAuthorName(e.target.value)}
+              placeholder="Например: Александр"
               required
             />
           </div>

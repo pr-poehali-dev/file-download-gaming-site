@@ -47,9 +47,9 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
                 uf.file_type,
                 uf.downloads,
                 uf.created_at,
-                u.username as author
+                COALESCE(u.username, uf.author_name, 'Аноним') as author
             FROM t_p79167660_file_download_gaming.user_files uf
-            JOIN t_p79167660_file_download_gaming.users u ON uf.user_id = u.id
+            LEFT JOIN t_p79167660_file_download_gaming.users u ON uf.user_id = u.id
             ORDER BY uf.created_at DESC
         ''')
         
@@ -73,23 +73,9 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         }
     
     if method == 'POST':
-        headers = event.get('headers', {})
-        user_id = headers.get('X-User-Id') or headers.get('x-user-id')
-        
-        if not user_id:
-            return {
-                'statusCode': 401,
-                'headers': {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
-                },
-                'isBase64Encoded': False,
-                'body': json.dumps({'error': 'Необходима авторизация'})
-            }
-        
         body_data = json.loads(event.get('body', '{}'))
         
-        required_fields = ['name', 'game', 'contentType', 'size', 'version', 'fileUrl']
+        required_fields = ['name', 'game', 'contentType', 'size', 'version', 'fileUrl', 'authorName']
         for field in required_fields:
             if not body_data.get(field):
                 return {
@@ -107,11 +93,10 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
         
         cur.execute('''
             INSERT INTO t_p79167660_file_download_gaming.user_files 
-            (user_id, name, game, content_type, download_type, mod_type, size, version, file_url, file_type)
+            (name, game, content_type, download_type, mod_type, size, version, file_url, file_type, author_name)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             RETURNING id, name, created_at
         ''', (
-            int(user_id),
             body_data['name'],
             body_data['game'],
             body_data['contentType'],
@@ -120,7 +105,8 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
             body_data['size'],
             body_data['version'],
             body_data['fileUrl'],
-            body_data.get('fileType', 'direct')
+            body_data.get('fileType', 'direct'),
+            body_data['authorName']
         ))
         
         result = cur.fetchone()
