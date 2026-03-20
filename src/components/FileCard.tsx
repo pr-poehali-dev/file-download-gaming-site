@@ -27,6 +27,7 @@ interface FileCardProps {
     fileType?: 'direct' | 'torrent' | 'upload';
     isOfficial?: boolean;
     author?: string;
+    description?: string;
   };
 }
 
@@ -104,13 +105,12 @@ export default function FileCard({ file }: FileCardProps) {
                     </p>
                   </div>
                 </div>
-                <div className="pt-4">
-                  <h4 className="font-semibold mb-2">Описание</h4>
-                  <p className="text-muted-foreground">
-                    Это подробное описание файла. Здесь можно разместить информацию о содержимом, 
-                    требованиях к системе, инструкцию по установке и другие важные детали.
-                  </p>
-                </div>
+                {file.description && (
+                  <div className="pt-4">
+                    <h4 className="font-semibold mb-2">Описание</h4>
+                    <p className="text-muted-foreground">{file.description}</p>
+                  </div>
+                )}
                 {file.fileUrl ? (
                   <a href={file.fileUrl} download target="_blank" rel="noopener noreferrer">
                     <Button className="w-full neon-border" size="lg">
