@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&family=Press+Start+2P&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -152,5 +152,82 @@
     100% {
       clip: rect(15px, 9999px, 45px, 0);
     }
+  }
+
+  .minecraft-theme {
+    --primary: 120 60% 40%;
+    --primary-rgb: 43, 163, 43;
+    --secondary: 30 60% 35%;
+    --accent: 60 80% 55%;
+    --border: 120 60% 40%;
+    --ring: 120 60% 40%;
+    --background: 120 15% 8%;
+    --card: 120 10% 11%;
+    --foreground: 60 80% 85%;
+    --muted-foreground: 120 20% 55%;
+  }
+
+  .minecraft-font h1,
+  .minecraft-font h2,
+  .minecraft-font h3 {
+    font-family: "Press Start 2P", monospace !important;
+    image-rendering: pixelated;
+  }
+
+  .minecraft-title {
+    font-family: "Press Start 2P", monospace !important;
+    color: #5aff3c;
+    text-shadow:
+      3px 3px 0px #1a6e00,
+      6px 6px 0px #0d3800;
+    letter-spacing: 2px;
+  }
+
+  .minecraft-neon-border {
+    box-shadow:
+      0 0 5px #5aff3c,
+      0 0 10px #5aff3c,
+      inset 0 0 5px rgba(90, 255, 60, 0.2);
+    border-color: #5aff3c !important;
+  }
+
+  .minecraft-bg {
+    background-color: hsl(120 15% 8%);
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 31px,
+        rgba(90, 255, 60, 0.03) 31px,
+        rgba(90, 255, 60, 0.03) 32px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 31px,
+        rgba(90, 255, 60, 0.03) 31px,
+        rgba(90, 255, 60, 0.03) 32px
+      );
+  }
+
+  @keyframes minecraft-float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  .minecraft-badge {
+    font-family: "Press Start 2P", monospace;
+    font-size: 8px;
+    background: #5aff3c;
+    color: #0d3800;
+    border: 2px solid #1a6e00;
+    padding: 2px 6px;
+    border-radius: 0;
+    image-rendering: pixelated;
   }
 }

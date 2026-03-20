@@ -67,12 +67,17 @@ export default function Index() {
     return matchesCategory && matchesSearch && matchesGame && matchesContentType && matchesDownloadType && matchesModType;
   });
 
+  const isMinecraft = selectedGame === 'Minecraft';
+
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b border-primary/20 backdrop-blur-sm sticky top-0 z-50 bg-background/80">
+    <div className={`min-h-screen transition-colors duration-500 ${isMinecraft ? 'minecraft-theme minecraft-bg minecraft-font' : 'bg-background'}`}>
+      <header className={`border-b backdrop-blur-sm sticky top-0 z-50 transition-all duration-500 ${isMinecraft ? 'border-green-700/50 bg-[#0d1a0d]/90' : 'border-primary/20 bg-background/80'}`}>
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-4xl font-black glitch neon-glow" data-text="BOX_GAME">
+            <h1
+              className={`font-black transition-all duration-500 ${isMinecraft ? 'minecraft-title text-xl' : 'text-4xl glitch neon-glow'}`}
+              data-text="BOX_GAME"
+            >
               BOX_GAME
             </h1>
             <div className="flex items-center gap-4">
@@ -82,11 +87,11 @@ export default function Index() {
                   placeholder="Поиск файлов..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 neon-border-secondary"
+                  className={`pl-10 ${isMinecraft ? 'minecraft-neon-border rounded-none' : 'neon-border-secondary'}`}
                 />
               </div>
               <Button
-                className="neon-border"
+                className={isMinecraft ? 'minecraft-neon-border rounded-none bg-green-900/50 text-green-300 hover:bg-green-800/60 border border-green-600' : 'neon-border'}
                 onClick={() => setUploadDialogOpen(true)}
               >
                 <Icon name="Upload" size={18} className="mr-2" />
@@ -95,7 +100,7 @@ export default function Index() {
               {user ? (
                 <Button
                   variant="outline"
-                  className="neon-border-secondary"
+                  className={isMinecraft ? 'minecraft-neon-border rounded-none border-green-600 text-green-300' : 'neon-border-secondary'}
                   onClick={() => {
                     authService.logout();
                     setUser(null);
@@ -107,7 +112,7 @@ export default function Index() {
               ) : (
                 <Button
                   variant="outline"
-                  className="neon-border-secondary"
+                  className={isMinecraft ? 'minecraft-neon-border rounded-none border-green-600 text-green-300' : 'neon-border-secondary'}
                   onClick={() => setAuthDialogOpen(true)}
                 >
                   <Icon name="User" size={18} className="mr-2" />
@@ -120,12 +125,19 @@ export default function Index() {
       </header>
 
       <div className="relative w-full h-64 md:h-80 overflow-hidden mb-8">
-        <img 
-          src="https://cdn.poehali.dev/files/13e217ab-dd17-43dd-a93e-92895f8e0617.jpg" 
-          alt="Cyberpunk Gaming Banner" 
-          className="w-full h-full object-cover"
+        <img
+          src={isMinecraft
+            ? 'https://cdn.poehali.dev/projects/a5a6bbac-c8c2-43be-b5cd-e4454e318ae4/files/cb54d5cf-189d-4aae-8e08-90484e164809.jpg'
+            : 'https://cdn.poehali.dev/files/13e217ab-dd17-43dd-a93e-92895f8e0617.jpg'}
+          alt={isMinecraft ? 'Minecraft Banner' : 'Cyberpunk Gaming Banner'}
+          className="w-full h-full object-cover transition-all duration-700"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent"></div>
+        <div className={`absolute inset-0 bg-gradient-to-t ${isMinecraft ? 'from-[#0d1a0d] via-[#0d1a0d]/50 to-transparent' : 'from-background via-background/50 to-transparent'}`}></div>
+        {isMinecraft && (
+          <div className="absolute bottom-6 left-8">
+            <span className="minecraft-badge">MINECRAFT</span>
+          </div>
+        )}
       </div>
 
       <div className="container mx-auto px-4 py-8">
@@ -134,10 +146,13 @@ export default function Index() {
             <Card
               key={category.id}
               className={`cursor-pointer transition-all duration-300 bg-card border-2 hover:scale-[1.02] ${
-                selectedCategory === category.id
-                  ? 'border-primary neon-border'
-                  : 'border-primary/20 hover:border-primary/50'
-              }`}
+                isMinecraft
+                  ? 'rounded-none border-green-700/50 hover:border-green-500/70'
+                  : selectedCategory === category.id
+                    ? 'border-primary neon-border'
+                    : 'border-primary/20 hover:border-primary/50'
+              } ${selectedCategory === category.id && !isMinecraft ? 'border-primary neon-border' : ''}
+              ${selectedCategory === category.id && isMinecraft ? 'border-green-500 minecraft-neon-border' : ''}`}
               onClick={() => {
                 setSelectedCategory(selectedCategory === category.id ? null : category.id);
                 setSelectedGame(null);
@@ -147,8 +162,8 @@ export default function Index() {
               }}
             >
               <CardContent className="p-10 text-center">
-                <Icon name={category.icon} className={`mx-auto mb-4 ${category.color}`} size={64} />
-                <h3 className="font-bold text-3xl">{category.name}</h3>
+                <Icon name={category.icon} className={`mx-auto mb-4 ${isMinecraft ? 'text-green-400' : category.color}`} size={64} />
+                <h3 className={`font-bold text-3xl ${isMinecraft ? 'text-green-300' : ''}`}>{category.name}</h3>
               </CardContent>
             </Card>
           ))}
@@ -164,6 +179,7 @@ export default function Index() {
           setSelectedContentType={setSelectedContentType}
           setSelectedDownloadType={setSelectedDownloadType}
           setSelectedModType={setSelectedModType}
+          isMinecraft={isMinecraft}
         />
 
         {filteredFiles.length > 0 ? (

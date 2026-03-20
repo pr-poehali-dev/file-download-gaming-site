@@ -34,7 +34,8 @@ export const gamesData = [
 export const gamesList = gamesData.map(g => g.name);
 
 export const contentTypes = [
-  { id: 'download', name: 'Скачать', icon: 'Download', subcategories: ['Оригинал', 'Сборка'] },
+  { id: 'download', name: 'Скачать', icon: 'Download', subcategories: ['Оригинал'] },
+  { id: 'assembly', name: 'Сборка', icon: 'Layers', subcategories: [] },
   { id: 'mods', name: 'Моды', icon: 'Package', subcategories: ['Оружие', 'Транспорт', 'Карты', 'Скины', 'Персонажи'] },
   { id: 'scripts', name: 'Скрипты', icon: 'Code' },
   { id: 'cheats', name: 'Читы', icon: 'Shield' },
@@ -171,6 +172,22 @@ export const mockFiles = [
     rating: 4.5,
     version: '1.20.4',
     fileUrl: 'https://misterlauncher.org',
+    fileType: 'direct',
+    isOfficial: true,
+  },
+  {
+    id: 10,
+    name: 'Minecraft - Сборка',
+    category: 'games',
+    game: 'Minecraft',
+    contentType: 'assembly',
+    downloadType: null,
+    modType: null,
+    size: '3.2 GB',
+    downloads: 156890,
+    rating: 4.9,
+    version: '1.20.4',
+    fileUrl: '',
     fileType: 'direct',
     isOfficial: true,
   },
