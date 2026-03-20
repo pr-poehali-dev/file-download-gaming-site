@@ -99,7 +99,9 @@ export default function FilterSection({
             >
               Всё
             </Button>
-            {contentTypes.map((type) => (
+            {contentTypes
+              .filter((type) => type.id !== 'scripts' || selectedGame === 'GTA San Andreas')
+              .map((type) => (
               <Button
                 key={type.id}
                 variant={selectedContentType === type.id ? "default" : "outline"}
