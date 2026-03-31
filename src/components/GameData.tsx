@@ -204,7 +204,7 @@ export const mockFiles = [
     downloads: 42300,
     rating: 4.8,
     version: '1.0',
-    fileUrl: '',
+    fileUrl: 'https://disk.yandex.ru/d/kQnUFdKlxRRN3A',
     fileType: 'direct',
     isOfficial: true,
     description: 'Эта сборка с удивительным красивым миром, разными существами, оружиями, квестами и улучшенным прохождением Майнкрафта. А также для этой сборки есть DLC (Дополнения).',
